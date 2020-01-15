@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Employee } from './employee';
 
 @Injectable({
   providedIn: 'root'
@@ -11,15 +12,16 @@ export class EmployeeService {
 
   constructor(private http: HttpClient) { }
 
-  getEmployee(id: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${id}`);
+  getEmployee(id: number){
+  
+    return this.http.get<Employee>(`${this.baseUrl}/${id}`);
   }
 
-  createEmployee(employee: Object): Observable<Object> {
-    return this.http.post(`${this.baseUrl}`, employee);
+  createEmployee(pepe: Object){
+    return this.http.post<Employee>(`${this.baseUrl}`, pepe);
   }
 
-  updateEmployee(id: number, value: any): Observable<Object> {
+  updateEmployee(id: number, value: any) {
     return this.http.put(`${this.baseUrl}/${id}`, value);
   }
 
@@ -27,7 +29,7 @@ export class EmployeeService {
     return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
   }
 
-  getEmployeesList(): Observable<any> {
-    return this.http.get(`${this.baseUrl}`);
+  getEmployeesList() {
+    return this.http.get<Employee[]>(`${this.baseUrl}`);
   }
 }
